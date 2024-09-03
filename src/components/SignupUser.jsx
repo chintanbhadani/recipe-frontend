@@ -12,6 +12,7 @@ const SignupUser = () => {
     email: "",
     password: "",
     confirm_password: "",
+    name: "",
   };
 
   const dispatch = useDispatch();
@@ -21,10 +22,7 @@ const SignupUser = () => {
     const payload = {
       email: values.email,
       password: values.password,
-      user_type: 1,
-      device_type: 1,
-      device_name: "Laptop",
-      device_id: "132422",
+      name: values.name,
     };
     await onSignUpSubmit(payload, dispatch, navigate);
   };
@@ -38,10 +36,10 @@ const SignupUser = () => {
           <h1 className="text-center  mt-5 mb-3 text-4xl font-semibold">
             Register
           </h1>
-          <p className="text-center text-md font-medium">
+          {/* <p className="text-center text-md font-medium">
             Don't have an account?{" "}
-            <a className="text-red-400">Register here!</a>
-          </p>
+            <a className="text-red-400" >Register here!</a>
+          </p> */}
           <Formik
             initialValues={initialValues}
             validationSchema={userSignUpValidation}
@@ -51,6 +49,30 @@ const SignupUser = () => {
               <Form>
                 <div className="mt-5 flex justify-center">
                   <div className="md:w-2/3 max-w-sm">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-lg font-medium  text-gray-900"
+                      >
+                        Name{" "}
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="border mt-1 border-gray-400 w-full h-[40px] rounded-lg text-lg p-5"
+                      />
+                    </div>
+                    {errors.name && touched.name && (
+                      <p
+                        id="standard_error_help"
+                        className="mt-2 text-xs text-red-600 dark:text-red-400 italic"
+                      >
+                        {errors.name}
+                      </p>
+                    )}
                     <div>
                       <label
                         htmlFor="email"
@@ -129,7 +151,11 @@ const SignupUser = () => {
                     >
                       Register
                     </button>
-                    <div className="flex items-center">
+                    <p className="text-center text-md font-medium" onClick={()=>{ navigate("/")}}>
+                      Already register?
+                      <a className="text-red-400 cursor-pointer">Login here!</a>
+                    </p>
+                    {/* <div className="flex items-center">
                       <div className="flex-1 border-t-2 border-gray-200"></div>
                       <span className="px-3 text-md text-slate-400 text-center my-3">
                         or login with
@@ -146,7 +172,7 @@ const SignupUser = () => {
                       <a className="w-12 h-12 rounded-md border border-slate-300 flex items-center justify-center cursor-pointer">
                         <BsApple className="text-xl" />
                       </a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </Form>

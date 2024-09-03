@@ -1,6 +1,6 @@
 export const API = {
-  login: `/user/login`,
-  user_signup: `/user/register`,
+  login: `/auth/login`,
+  user_signup: `/auth/signup`,
   user_logout: `/user/logout`,
   forgot_password: `/user/password/forgot`,
   reset_password: `/user/password/reset`,

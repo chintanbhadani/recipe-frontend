@@ -8,6 +8,7 @@ export const userSignUpValidation = Yup.object({
   confirm_password: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .label("confirm_password"),
+  name: validateString.required("Name is reqiured") 
 });
 
 export const onLoginValidation = Yup.object({
