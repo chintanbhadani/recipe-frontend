@@ -6,25 +6,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../axios/api";
 import CustomTable from "../../helper/newTable/CustomTable";
 import useTable from "../../hooks/useTable";
+import { Formik } from "formik";
+import FilterForm from "./FilterForm";
 
 const initialValue = {
   //   fieldName: TimesheetFormFields.scheduler,
-  schedulerId: null,
-  relieverId: null,
-  centreId: null,
-  startDate: null,
-  endDate: null,
+  ingredients: [],
 };
 
 const RecipeList = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [timeSheet, setTimeSheet] = useState(null);
+  //   const [isOpen, setIsOpen] = useState(false);
+  //   const [timeSheet, setTimeSheet] = useState(null);
 
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
-  const tableData = useSelector((state) => state.base.tableData);
+  //   const tableData = useSelector((state) => state.base.tableData);
 
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   //   usePathName([{ pathName: "Timesheet", href: "/timesheet" }]);
 
   const jobTimeTable = useTable("relieverJobHours", API.recipe, false, {
@@ -109,18 +107,20 @@ const RecipeList = () => {
   //     setIsOpen(false);
   //   };
 
-  //   const onTimesheetSubmit = (values) => {
-  //     // const metaFilters = {};
-  //     // if (values.schedulerId) metaFilters.schedulerId = values?.schedulerId;
-  //     // if (values.centreId) metaFilters.centreId = values?.centreId;
-  //     // if (values.relieverId) metaFilters.relieverId = values?.relieverId;
-  //     // if (values?.startDate) metaFilters.startDate = moment(values.startDate)?.startOf("day").toISOString();
-  //     // if (values?.endDate) metaFilters.endDate = moment(values.endDate)?.endOf("day").toISOString();
-  //     // dispatch(
-  //     //     setTableData({ ...tableData, metaFilter: metaFilters as MetaFilterInterface, metaFilterData: values as MetaFilterInterface })
-  //     // );
-  //     // jobTimeTable.onSearch<MetaFilterInterface>("", metaFilters as MetaFilterInterface);
-  //   };
+  const onTimesheetSubmit = (values) => {
+    console.log("values  :: ", values);
+
+    // const metaFilters = {};
+    // if (values.schedulerId) metaFilters.schedulerId = values?.schedulerId;
+    // if (values.centreId) metaFilters.centreId = values?.centreId;
+    // if (values.relieverId) metaFilters.relieverId = values?.relieverId;
+    // if (values?.startDate) metaFilters.startDate = moment(values.startDate)?.startOf("day").toISOString();
+    // if (values?.endDate) metaFilters.endDate = moment(values.endDate)?.endOf("day").toISOString();
+    // dispatch(
+    //     setTableData({ ...tableData, metaFilter: metaFilters as MetaFilterInterface, metaFilterData: values as MetaFilterInterface })
+    // );
+    // jobTimeTable.onSearch<MetaFilterInterface>("", metaFilters as MetaFilterInterface);
+  };
 
   return (
     <>
@@ -143,20 +143,14 @@ const RecipeList = () => {
           onSetOrderBy={jobTimeTable.onSetOrderBy}
           component={
             <>
-              {/* <SearchForm
-                                resetSearch={jobTimeTable.resetSearch}
-                                onSearch={jobTimeTable.onSearch}
-                                searchPlaceHolder="Search by name or email"
-                            /> */}
-
-              {/* <Formik
+              <Formik
                 initialValues={initialValue}
                 enableReinitialize
                 onSubmit={onTimesheetSubmit}
-                validationSchema={timeSheetFilterValidation}
+                // validationSchema={timeSheetFilterValidation}
               >
-                {(props) => <TimeSheetForm {...props} />}
-              </Formik> */}
+                {(props) => <FilterForm {...props} />}
+              </Formik>
             </>
           }
         />

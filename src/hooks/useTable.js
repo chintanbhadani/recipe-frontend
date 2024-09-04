@@ -15,8 +15,6 @@ const useTable = (tableFor, url, strict, params) => {
 
   const tableOffsetData = useSelector((state) => state.base.tableData ?? {});
 
-  console.log("tableOffsetData  :: ", tableOffsetData);
-
   const { search, page, limit, maxPage, orderBy } = tableOffsetData;
 
   let payloadForReload = {
@@ -65,8 +63,6 @@ const useTable = (tableFor, url, strict, params) => {
       ...lParams,
     })}`
   );
-
-  //   console.log("res  :: ", res);
 
   const dataValues = res ?? null;
 
