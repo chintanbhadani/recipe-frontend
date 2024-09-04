@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import { INGREDIENTS } from "../../constant";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const allIngredients = INGREDIENTS.map((ele) => ({ value: ele, label: ele }));
 
@@ -14,29 +15,14 @@ const FilterForm = ({
   touched,
   dirty,
 }) => {
-  // const schedulersData = useFetch<SchedulerForSelect[]>(
-  //   `${api.admin.schedulersForCentre}`
-  // );
-
   const loading = useSelector((state) => state.base.loading);
-
-  // const relieverData = useFetch<RelieverForSelect[]>(`${api.admin.reliever}`);
-
-  // const centreData = useFetch<CentreForSelect[]>(`${api.admin.getCentre}`);
-
-  // const handleOptionChange = (value: TimesheetFormFields) => {
-  //   resetForm();
-
-  //   setFieldValue("fieldName", value);
-  // };
+  const navigate = useNavigate();
 
   const handleResetField = () => {
     resetForm();
   };
 
   const onChangeIngredient = useCallback((selectedItem) => {
-    console.log(" selectedItem  :: ", selectedItem);
-
     setFieldValue("ingredients", selectedItem);
   }, []);
 
@@ -85,6 +71,16 @@ const FilterForm = ({
           disabled={!dirty}
         >
           Reset
+        </button>
+        <button
+          id="tabulator-html-filter-go"
+          type="submit"
+          className="btn btn-primary w-auto px-4 ml-5"
+          onClick={() => {
+            navigate("/favorite-recipe");
+          }}
+        >
+          Show favorite recipe
         </button>
       </div>
     </Form>

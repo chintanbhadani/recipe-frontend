@@ -1,60 +1,55 @@
 /* eslint-disable indent */
-// import { AlertTriangle, Edit, Trash2 } from "react-feather";
-import { useNavigate } from "react-router-dom";
-import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../axios/api";
 import CustomTable from "../../helper/newTable/CustomTable";
 import useTable from "../../hooks/useTable";
 import { Formik } from "formik";
 import FilterForm from "./FilterForm";
+import data from "../../../src/helper/test.json";
+import { Tooltip } from "react-tooltip";
+import { Eye, Heart } from "react-feather";
+import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+import dataService from "../../axios/dataService";
+import { successToast } from "../../helper/toast";
+import { errorHandler } from "../../helper/handleError";
 
 const initialValue = {
-  //   fieldName: TimesheetFormFields.scheduler,
   ingredients: [],
 };
 
 const RecipeList = () => {
-  //   const [isOpen, setIsOpen] = useState(false);
-  //   const [timeSheet, setTimeSheet] = useState(null);
+  const navigate = useNavigate();
 
-  //   const dispatch = useDispatch();
+  // const jobTimeTable = useTable("relieverJobHours", API.recipe, false, {
+  //   apiKey: "baf2d6aaa0b34d3fba0adcd5d6642c30",
+  //   ingredients: "carrots,tomatoes",
+  // });
 
-  //   const tableData = useSelector((state) => state.base.tableData);
+  // console.log("  =================", data);
 
-  //   const navigate = useNavigate();
-  //   usePathName([{ pathName: "Timesheet", href: "/timesheet" }]);
-
-  const jobTimeTable = useTable("relieverJobHours", API.recipe, false, {
-    apiKey: "baf2d6aaa0b34d3fba0adcd5d6642c30",
-    ingredients: "carrots,tomatoes",
-  });
-
-  //   const availableRelieverTable =
-  //     useTable <
-  //     AvailableRelieverTableInterface >
-  //     ("availableReliever",
-  //     `${api.admin.getRelieverList}`,
-  //     false,
-  //     {
-  //       date,
-  //       status,
-  //       positionId: position?.positionId ?? "",
-  //     });
+  const jobTimeTable = data;
 
   console.log("jobTimeTable", jobTimeTable);
 
-  //   const onDeleteClick = useCallback((record) => {
-  //     setTimeSheet(record);
-  //     setIsOpen(true);
-  //   }, []);
+  const addToFavorite = useCallback(async (record) => {
+    try {
+      const payload = {
+        recipeId: record.id.toString(),
+        recipeName: record.title,
+        recipeImage: record.image,
+        recipeSummary: record.title,
+        ingredients: [
+          ...record.missedIngredients.map((ingredient) => ingredient.name),
+          ...record.usedIngredients.map((ingredient) => ingredient.name),
+        ],
+      };
+      const response = await dataService.post(API.addFavorite, payload);
 
-  //   const onDelete = () => {
-  //     if (timeSheet?.id) {
-  //       onDeleteTimeSheet(timeSheet.id, dispatch, jobTimeTable.fetchApi);
-  //       setIsOpen(false);
-  //     }
-  //   };
+      successToast(response.data.message);
+    } catch (error) {
+      return errorHandler(error);
+    }
+  }, []);
 
   const jobTimeCols = [
     {
@@ -101,35 +96,51 @@ const RecipeList = () => {
         );
       },
     },
+    {
+      title: "ACTION",
+      key: "action",
+      render: (record) => {
+        return (
+          <>
+            <div className="flex justify-center items-center text-primary">
+              <Tooltip id="simpleTooltipEditDeleteAgeGroup" place="top" />
+              <div
+                className="flex items-center mr-3 cursor-pointer"
+                data-tooltip-id="simpleTooltipEditDeleteAgeGroup"
+                data-tooltip-content={"Add to favorite"}
+                onClick={() => addToFavorite(record)}
+              >
+                <Heart className="w-4 h-4 mr-1" />
+              </div>
+              <Tooltip id="simpleTooltipEditDeleteAgeGroup" place="top" />
+              <div
+                className="flex items-center mr-3 cursor-pointer"
+                data-tooltip-id="simpleTooltipEditDeleteAgeGroup"
+                data-tooltip-content={"View recipe"}
+                onClick={() => navigate(`/recipe/${record?.id}`)}
+              >
+                <Eye className="w-4 h-4 mr-1" />
+              </div>
+            </div>
+          </>
+        );
+      },
+    },
   ];
 
-  //   const handleCancel = () => {
-  //     setIsOpen(false);
-  //   };
+  const onSearch = (values) => {
+    const metaFilters = {};
+    if (values.ingredients && values.ingredients.length > 0) {
+      metaFilters.ingredients = values.ingredients
+        .map((ingredient) => ingredient.value) // Extract the 'value' from each ingredient
+        .join(","); // Join the values into a comma-separated string
+    }
 
-  const onTimesheetSubmit = (values) => {
-    console.log("values  :: ", values);
-
-    // const metaFilters = {};
-    // if (values.schedulerId) metaFilters.schedulerId = values?.schedulerId;
-    // if (values.centreId) metaFilters.centreId = values?.centreId;
-    // if (values.relieverId) metaFilters.relieverId = values?.relieverId;
-    // if (values?.startDate) metaFilters.startDate = moment(values.startDate)?.startOf("day").toISOString();
-    // if (values?.endDate) metaFilters.endDate = moment(values.endDate)?.endOf("day").toISOString();
-    // dispatch(
-    //     setTableData({ ...tableData, metaFilter: metaFilters as MetaFilterInterface, metaFilterData: values as MetaFilterInterface })
-    // );
-    // jobTimeTable.onSearch<MetaFilterInterface>("", metaFilters as MetaFilterInterface);
+    jobTimeTable.onSearch("", metaFilters);
   };
 
   return (
     <>
-      {/* <DeleteModal
-        handleCancel={handleCancel}
-        isOpen={isOpen}
-        onDelete={onDelete}
-        subTitle="Do you really want to delete this position?"
-      /> */}
       <div className="grid grid-cols-12 gap-6 mt-5">
         <CustomTable
           cols={jobTimeCols}
@@ -146,8 +157,7 @@ const RecipeList = () => {
               <Formik
                 initialValues={initialValue}
                 enableReinitialize
-                onSubmit={onTimesheetSubmit}
-                // validationSchema={timeSheetFilterValidation}
+                onSubmit={onSearch}
               >
                 {(props) => <FilterForm {...props} />}
               </Formik>

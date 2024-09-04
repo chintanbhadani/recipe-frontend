@@ -29,7 +29,6 @@ const SignupRestaurant = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
-    console.log("values :: ", values);
     // onSignUpSubmit(values, dispatch);
   };
 

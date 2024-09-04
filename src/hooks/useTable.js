@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { serializeQueryParams } from "../helper/helper";
 import { useDispatch, useSelector } from "react-redux";
-// import { setTableData } from "../store/slice/BaseSlice";
 import { useParams } from "react-router-dom";
-// import useFetch from "./useFetch";
 import { setTableData } from "../store/slice/Base";
 import useFetch from "./useFetch";
 
 const useTable = (tableFor, url, strict, params) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
 
   const { pageType = "" } = useParams();
   const [lParams, setLParams] = useState(params);
@@ -63,6 +61,9 @@ const useTable = (tableFor, url, strict, params) => {
       ...lParams,
     })}`
   );
+
+  console.log(" res ", res);
+  
 
   const dataValues = res ?? null;
 
@@ -152,6 +153,8 @@ const useTable = (tableFor, url, strict, params) => {
 
   const onSearch = useCallback(
     (value = "", metaFilter) => {
+      console.log(" metaFilter :: ", metaFilter);
+
       if (value) {
         dispatch(
           setTableData({

@@ -8,8 +8,8 @@ export const onSignUpSubmit = async (payload, dispatch, navigate) => {
   try {
     const response = await dataService.post(API.user_signup, payload);
     successToast(response.data.message);
-    dispatch(setToken(response.data.data.access_token));
-    navigate("/home");
+    dispatch(setToken(response.data.data.token));
+    navigate("/list");
   } catch (error) {
     return errorHandler(error);
   }
@@ -19,18 +19,17 @@ export const onLogin = async (payload, dispatch, navigate) => {
   try {
     const response = await dataService.post(API.login, payload);
     successToast(response.data.message);
-    dispatch(setToken(response.data.data.access_token));
-    navigate("/home");
+    dispatch(setToken(response.data.data.token));
+    navigate("/list");
   } catch (error) {
-    console.log(" ==>> error", error);
     return errorHandler(error);
   }
 };
 
 export const onLogout = async (dispatch, navigate) => {
   try {
-    const response = await dataService.delete(API.user_logout);
-    successToast(response.data.message);
+    // const response = await dataService.delete(API.user_logout);
+    // successToast(response.data.message);
     dispatch(setToken(""));
     navigate("/");
   } catch (error) {
