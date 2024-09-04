@@ -1,3 +1,345 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+input[type="time"] {
+  position: relative;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
+
+.optionColor {
+  color: #fff;
+  background-color: #002857;
+}
+
+.job-pending-style label {
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.job-pending-style .form-select {
+  max-width: 125px;
+  min-width: 125px;
+}
+
+.job-pending-style .tom-select {
+  min-width: 150px;
+  max-width: 250px;
+}
+
+.align-items-baseline {
+  align-items: baseline !important;
+}
+
+.job-filter-style .select__control {
+  min-width: 125px;
+}
+
+.job-filter-style .select__value-container--is-multi {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 150px;
+}
+
+.job-filter-style .select__multi-value {
+  min-width: 70px;
+}
+
+.job-filter-style .select__indicator {
+  padding: 8px 0;
+}
+
+.filter-date-picker {
+  max-width: 125px;
+}
+
+@media only screen and (max-width: 640px) {
+  .job-filter-form {
+    width: 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .modal .modal-dialog {
+    width: 550px;
+  }
+}
+
+#simpleTooltipForUpdateJob,
+#simpleTooltipForDocumentName,
+#simpleTooltipForCreateJob,
+.custom-tooltip {
+  z-index: 99;
+}
+
+.globalsetting-form .intro-y {
+  z-index: 1;
+}
+
+.unavailability-datepicker .rmdp-day {
+  color: rgb(0, 170, 0);
+}
+
+.available-badge {
+  background: rgb(0, 170, 0);
+}
+
+.unavailability-datepicker,
+.rmdp-disabled,
+.rmdp-week-day {
+  color: #8d8d8d !important;
+}
+
+.rmdp-disabled > span:hover {
+  background-color: unset !important;
+}
+
+.unavailability-datepicker .rmdp-calendar .rmdp-selected > span,
+.unavailable-badge {
+  background-color: rgb(230, 5, 5) !important;
+  box-shadow: none !important;
+}
+
+.unavailability-datepicker .rmdp-calendar:hover .rmdp-day:hover > span:hover {
+  background-color: rgb(255, 110, 110);
+}
+
+.user-type,
+.report-form {
+  align-items: baseline !important;
+}
+
+.report-field {
+  width: 140px;
+}
+
+.react-datepicker-popper {
+  z-index: 99 !important;
+}
+
+@media only screen and (max-width: 1500px) {
+  .report-form {
+    flex-direction: column;
+  }
+
+  .user-select-type > label {
+    flex: unset;
+  }
+
+  .user-type {
+    align-items: center !important;
+  }
+
+  .report-form label {
+    width: 120px;
+  }
+
+  .user-type > .tom-select {
+    margin-top: 5px;
+  }
+
+  .report-field {
+    width: 200px !important;
+  }
+
+  .report-action-button {
+    margin-left: 0;
+  }
+
+  .report-form .react-datepicker-wrapper {
+    width: unset !important;
+  }
+
+  .job-filter-form .react-datepicker-wrapper {
+    width: unset !important;
+  }
+
+  .user-type .tom-select {
+    width: 200px;
+  }
+
+  .filter-date-picker {
+    max-width: 200px;
+  }
+
+  .report-form .form-control,
+  .job-filter-form .form-control,
+  .job-filter-style {
+    width: 200px;
+  }
+
+  .job-pending-style {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .job-pending-style label {
+    width: 4rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .report-form .form-control,
+  .job-filter-form .form-control,
+  .job-filter-style {
+    width: 150px;
+  }
+}
+
+@media (max-width: 320px) {
+  .report-form .form-control,
+  .job-filter-form .form-control,
+  .job-filter-style {
+    width: 100px;
+  }
+}
+
+.formField {
+  z-index: 1 !important;
+}
+
+.react-datepicker__triangle {
+  left: -20px !important;
+}
+
+.react-datepicker-popper {
+  width: 280px;
+}
+
+.react-datepicker {
+  border: none !important;
+  background-color: #ffffff !important;
+  box-shadow: 0px 3px 20px #00000014;
+  width: 100%;
+}
+
+.react-datepicker__header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  width: 100%;
+  padding: 0.4rem !important;
+}
+
+.react-datepicker__month-container {
+  width: 100%;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: #216ba5 !important;
+}
+
+.react-datepicker__day-names {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.addnewrelieverpage .react-datepicker,
+.addnewjobpage .react-datepicker,
+.addNewSchedulerPage .react-datepicker {
+  position: absolute !important;
+}
+
+.react-datepicker__week {
+  white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+}
+
+.color-red {
+  color: red;
+}
+
+.checkbox-style {
+  border: red 1px solid !important;
+  background-color: red !important;
+}
+
+.checkbox-style::before {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.checkbox-active {
+  border: rgb(var(--color-danger) / var(--tw-text-opacity)) 1px solid !important;
+  background-color: rgb(
+    var(--color-danger) / var(--tw-text-opacity)
+  ) !important;
+}
+
+.select__input-container input:focus,
+.select__input-container input:active {
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: none !important;
+}
+
+@media (max-width: 1090px) {
+  .availableForm {
+    width: 400px;
+    flex-direction: column;
+  }
+  .availableFormLebel {
+    margin-left: 0;
+    width: 50px;
+  }
+  .availableForm .tom-select {
+    margin: 5px 0;
+    width: 190px;
+  }
+  .availableForm .react-datepicker-wrapper {
+    width: unset;
+    margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .auth-logo {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-logo-section {
+    margin: 20px auto auto !important;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .content-vh-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .dashboard-data-analytics {
+    width: calc(50% - 50px) !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .dashboard-data-analytics {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 551.98px) {
+  .dashboard-analytics-card {
+    width: 100%;
+  }
+}
