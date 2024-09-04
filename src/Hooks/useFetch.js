@@ -1,48 +1,34 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
+// import { dataService } from "../config/DataService";
+import { handleErrorForFetch } from "../helper/helper";
+import dataService from "../axios/dataService";
 
-const defaultInitialState = {
-  status: "idle",
-  data: null,
-  error: null,
-};
-export const useFetch = () => {
-  const [state, setState] = useState(defaultInitialState);
+const useFetch = (url) => {
+  const [loading, setLoading] = useState(true);
+  const [res, setRes] = useState();
+  const [error, setError] = useState(null);
 
-  const run = useCallback(async (promise) => {
-    setState({
-      data: null,
-      status: "pending",
-      error: null,
-    });
-    const response = await promise;
-
-    const { data, error } = response;
-
-    if (error) {
-      setState({
-        data: null,
-        status: "rejected",
-        error,
+  const fetchApi = (updatedUrl) => {
+    setLoading(true);
+    dataService
+      .get(updatedUrl ? updatedUrl : url)
+      .then((response) => {
+        return response.data;
+      })
+      .then((json) => {
+        setLoading(false);
+        setRes(json);
+      })
+      .catch((error) => {
+        handleErrorForFetch(error, setError);
       });
-    }
-    if (data) {
-      setState({
-        data,
-        status: "resolved",
-        error: null,
-      });
-    }
-  });
-
-  const { data, status, error } = state;
-
-  return {
-    data,
-    run,
-    error,
-    isIdle: status === "idle",
-    isLoading: status === "pending",
-    isError: status === "rejected",
-    isSuccess: status === "resolved",
   };
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  return { loading, res, fetchApi, error };
 };
+
+export default useFetch;

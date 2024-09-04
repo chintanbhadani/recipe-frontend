@@ -1,8 +1,4 @@
 import { API } from "../axios/api";
-import dataService from "../axios/dataService";
-import { errorHandler } from "../helper/handleError";
-import { successToast } from "../helper/toast";
-import { setToken } from "../store/slice/Base";
 import axios from "axios";
 
 // export const getUser = async (payload, dispatch) => {

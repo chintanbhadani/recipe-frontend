@@ -34,6 +34,7 @@ const PageList = () => {
     handleSelectAllClick,
     // handleTableSearch,
     // handleDeleteLastPageData,
+    // setSearch,
   } = useTable({
     loading: true,
   });

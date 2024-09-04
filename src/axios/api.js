@@ -6,4 +6,5 @@ export const API = {
   reset_password: `/user/password/reset`,
   cuisine_type: "user/restaurant/cuisine-types",
   user: "https://api.slingacademy.com/v1/sample-data/users",
+  recipe: "https://api.spoonacular.com/recipes/findByIngredients",
 };
