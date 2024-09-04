@@ -3,7 +3,6 @@ import { useDropzone } from "react-dropzone";
 
 const Uploader = () => {
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
 
@@ -12,7 +11,6 @@ const Uploader = () => {
       reader.onload = () => {
         // Do whatever you want with the file contents
         const binaryStr = reader.result;
-        console.log(binaryStr);
       };
       reader.readAsArrayBuffer(file);
     });

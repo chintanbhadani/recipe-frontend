@@ -6,7 +6,7 @@ import { setTableData } from "../store/slice/Base";
 import useFetch from "./useFetch";
 
 const useTable = (tableFor, url, strict, params) => {
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
 
   const { pageType = "" } = useParams();
   const [lParams, setLParams] = useState(params);
@@ -61,9 +61,6 @@ const useTable = (tableFor, url, strict, params) => {
       ...lParams,
     })}`
   );
-
-  console.log(" res ", res);
-  
 
   const dataValues = res ?? null;
 

@@ -9,7 +9,7 @@ export const onSignUpSubmit = async (payload, dispatch, navigate) => {
     const response = await dataService.post(API.user_signup, payload);
     successToast(response.data.message);
     dispatch(setToken(response.data.data.token));
-    navigate("/list");
+    navigate("/");
   } catch (error) {
     return errorHandler(error);
   }
@@ -20,7 +20,7 @@ export const onLogin = async (payload, dispatch, navigate) => {
     const response = await dataService.post(API.login, payload);
     successToast(response.data.message);
     dispatch(setToken(response.data.data.token));
-    navigate("/list");
+    navigate("/dashboard");
   } catch (error) {
     return errorHandler(error);
   }

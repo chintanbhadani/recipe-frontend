@@ -11,16 +11,10 @@ const RoutesContainer = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<ExcelDataList />} /> */}
         <Route path="/signup" element={<SignupUser />} />
         <Route path="/" element={<Login />} />
-        <Route path="/list-old" element={<PageList />} />
-        {/* <AuthGuard>
-          <Route path="/list" element={<RecipeList />} />
-        </AuthGuard> */}
-
         <Route
-          path="/list"
+          path="/dashboard"
           element={
             <AuthGuard>
               <RecipeList />

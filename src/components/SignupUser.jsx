@@ -1,6 +1,3 @@
-import { FcGoogle } from "react-icons/fc";
-import { BsApple } from "react-icons/bs";
-import { MdFacebook } from "react-icons/md";
 import { Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { onSignUpSubmit } from "../services/auth";
@@ -26,155 +23,164 @@ const SignupUser = () => {
     };
     await onSignUpSubmit(payload, dispatch, navigate);
   };
+
   return (
     <>
-      <div className="grid grid-cols-1 min-h-screen md:grid-cols-2">
-        <div className="bg-[url('src\assets\images\banner.jpg')] bg-no-repeat bg-cover">
-          <h1 className="font-bold text-3xl p-5 text-white h-[50vh]">Logo</h1>
+      <div className="flex flex-col lg:flex-row min-h-screen">
+        {/* Left Side - Banner */}
+        <div
+          className="hidden lg:flex flex-col bg-cover bg-no-repeat bg-center min-h-full w-full lg:w-1/2"
+          style={{
+            backgroundImage: "url('src/assets/images/banner.jpg')",
+          }}
+        >
+          <div className="my-auto text-center">
+            <h1 className="text-white text-4xl font-semibold mt-8">
+              Welcome to Recipe Finder
+            </h1>
+            <p className="text-white text-lg mt-4 opacity-80">
+              Join us and discover a world of delicious recipes!
+            </p>
+          </div>
         </div>
-        <div className="p-5">
-          <h1 className="text-center  mt-5 mb-3 text-4xl font-semibold">
+
+        {/* Right Side - Signup Form */}
+        <div className="flex flex-col justify-center p-10 bg-white lg:w-1/2">
+          <h2 className="text-center text-3xl font-bold mb-6">
             Register
-          </h1>
-          {/* <p className="text-center text-md font-medium">
-            Don't have an account?{" "}
-            <a className="text-red-400" >Register here!</a>
-          </p> */}
+          </h2>
           <Formik
             initialValues={initialValues}
             validationSchema={userSignUpValidation}
             onSubmit={onSubmit}
           >
             {({ values, handleChange, errors, handleBlur, touched }) => (
-              <Form>
-                <div className="mt-5 flex justify-center">
-                  <div className="md:w-2/3 max-w-sm">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-lg font-medium  text-gray-900"
-                      >
-                        Name{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="border mt-1 border-gray-400 w-full h-[40px] rounded-lg text-lg p-5"
-                      />
-                    </div>
-                    {errors.name && touched.name && (
-                      <p
-                        id="standard_error_help"
-                        className="mt-2 text-xs text-red-600 dark:text-red-400 italic"
-                      >
-                        {errors.name}
-                      </p>
-                    )}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-lg font-medium  text-gray-900"
-                      >
-                        Email{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="email"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="border mt-1 border-gray-400 w-full h-[40px] rounded-lg text-lg p-5"
-                      />
-                    </div>
-                    {errors.email && touched.email && (
-                      <p
-                        id="standard_error_help"
-                        className="mt-2 text-xs text-red-600 dark:text-red-400 italic"
-                      >
-                        {errors.email}
-                      </p>
-                    )}
-                    <div>
-                      <label
-                        htmlFor="password"
-                        className="block text-lg font-medium  text-gray-900 mt-3"
-                      >
-                        Password
-                      </label>
-                      <input
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                        className="border mt-1 border-gray-400 w-full h-[40px] rounded-lg text-lg p-5"
-                      />
-                    </div>
-                    {errors.password && touched.password && (
-                      <p
-                        id="standard_error_help"
-                        className="mt-2 text-xs text-red-600 dark:text-red-400 italic"
-                      >
-                        {errors.password}
-                      </p>
-                    )}
-                    <div>
-                      <label
-                        htmlFor="confirm_password"
-                        className="block text-lg font-medium  text-gray-900 mt-3"
-                      >
-                        Confirm Password
-                      </label>
-                      <input
-                        name="confirm_password"
-                        value={values.confirm_password}
-                        onChange={handleChange}
-                        className="border mt-1 border-gray-400 w-full h-[40px] rounded-lg text-lg p-5"
-                      />
-                    </div>
-                    {errors.confirm_password && touched.confirm_password && (
-                      <p
-                        id="standard_error_help"
-                        className="mt-2 text-xs text-red-600 dark:text-red-400 italic"
-                      >
-                        {errors.confirm_password}
-                      </p>
-                    )}
-                    <p className="py-2">
-                      Use 8 or more characters with a mix of letters, numbers
-                      and symbols.
-                    </p>
-                    <button
-                      type="submit"
-                      className="bg-red-400 text-2xl font-semibold text-center h-[50px] w-full rounded-md mt-3 text-white"
-                    >
-                      Register
-                    </button>
-                    <p className="text-center text-md font-medium" onClick={()=>{ navigate("/")}}>
-                      Already register?
-                      <a className="text-red-400 cursor-pointer">Login here!</a>
-                    </p>
-                    {/* <div className="flex items-center">
-                      <div className="flex-1 border-t-2 border-gray-200"></div>
-                      <span className="px-3 text-md text-slate-400 text-center my-3">
-                        or login with
-                      </span>
-                      <div className="flex-1 border-t-2 border-gray-200"></div>
-                    </div>
-                    <div className="flex justify-center items-center">
-                      <a className="w-12 h-12 rounded-md border border-slate-300 flex items-center justify-center cursor-pointer">
-                        <FcGoogle className="text-2xl" />
-                      </a>
-                      <a className="w-12 h-12 rounded-md border border-slate-300 flex items-center justify-center mx-5 cursor-pointer">
-                        <MdFacebook className="text-2xl text-cyan-600" />
-                      </a>
-                      <a className="w-12 h-12 rounded-md border border-slate-300 flex items-center justify-center cursor-pointer">
-                        <BsApple className="text-xl" />
-                      </a>
-                    </div> */}
-                  </div>
+              <Form className="w-full max-w-sm mx-auto">
+                <div className="mb-4">
+                  <label
+                    htmlFor="name"
+                    className="block text-lg font-medium text-gray-900"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`form-control block w-full px-4 py-3 mt-1 ${
+                      errors.name && touched.name
+                        ? "border-danger"
+                        : "border-gray-300"
+                    } rounded-md`}
+                    placeholder="Enter name"
+                  />
+                  {errors.name && touched.name && (
+                    <div className="text-danger mt-2">{errors.name}</div>
+                  )}
                 </div>
+
+                <div className="mb-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-lg font-medium text-gray-900"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`form-control block w-full px-4 py-3 mt-1 ${
+                      errors.email && touched.email
+                        ? "border-danger"
+                        : "border-gray-300"
+                    } rounded-md`}
+                    placeholder="Enter email"
+                  />
+                  {errors.email && touched.email && (
+                    <div className="text-danger mt-2">{errors.email}</div>
+                  )}
+                </div>
+
+                <div className="mb-4">
+                  <label
+                    htmlFor="password"
+                    className="block text-lg font-medium text-gray-900"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`form-control block w-full px-4 py-3 mt-1 ${
+                      errors.password && touched.password
+                        ? "border-danger"
+                        : "border-gray-300"
+                    } rounded-md`}
+                    placeholder="Enter password"
+                  />
+                  {errors.password && touched.password && (
+                    <div className="text-danger mt-2">{errors.password}</div>
+                  )}
+                </div>
+
+                <div className="mb-6">
+                  <label
+                    htmlFor="confirm_password"
+                    className="block text-lg font-medium text-gray-900"
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    name="confirm_password"
+                    value={values.confirm_password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`form-control block w-full px-4 py-3 mt-1 ${
+                      errors.confirm_password && touched.confirm_password
+                        ? "border-danger"
+                        : "border-gray-300"
+                    } rounded-md`}
+                    placeholder="Confirm password"
+                  />
+                  {errors.confirm_password && touched.confirm_password && (
+                    <div className="text-danger mt-2">{errors.confirm_password}</div>
+                  )}
+                </div>
+
+                <p className="py-2 text-sm text-gray-600">
+                  Use 8 or more characters with a mix of letters, numbers, and symbols.
+                </p>
+
+                <button
+                  type="submit"
+                  className="w-full bg-gray-800 text-white py-3 rounded-md font-semibold text-lg hover:bg-gray-900"
+                  style={{
+                    appearance: "none",
+                    backgroundColor: "#1f2937",
+                    color: "#ffffff",
+                  }}
+                >
+                  Register
+                </button>
+
+                <p className="text-center text-md font-medium mt-4">
+                  Already registered?{" "}
+                  <a
+                    onClick={() => navigate("/")}
+                    className="text-green-600 cursor-pointer"
+                  >
+                    Login here!
+                  </a>
+                </p>
               </Form>
             )}
           </Formik>

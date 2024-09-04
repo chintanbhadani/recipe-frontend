@@ -5,7 +5,7 @@ import Loading from "../../container/Loading";
 
 const RecipeShowPage = () => {
   const { id } = useParams(); // Get the recipe ID from the URL
-  const recipeUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=baf2d6aaa0b34d3fba0adcd5d6642c30`; // Construct the URL for fetching recipe details
+  const recipeUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${import.meta.env.VITE_API_KEY || "baf2d6aaa0b34d3fba0adcd5d6642c30"}`; // Construct the URL for fetching recipe details
 
   const { res: recipe, fetchApi } = useFetch(recipeUrl);
 

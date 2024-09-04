@@ -45,7 +45,6 @@ const SignupRestaurant = () => {
   };
 
   const validateStep = () => {
-    console.log("validateStep :: ", step);
     if (step === 1) {
       return Yup.object({});
     } else if (step === 2) {

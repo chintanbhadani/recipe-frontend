@@ -20,16 +20,12 @@ const initialValue = {
 const RecipeList = () => {
   const navigate = useNavigate();
 
-  // const jobTimeTable = useTable("relieverJobHours", API.recipe, false, {
-  //   apiKey: "baf2d6aaa0b34d3fba0adcd5d6642c30",
-  //   ingredients: "carrots,tomatoes",
-  // });
-
-  // console.log("  =================", data);
-
-  const jobTimeTable = data;
-
-  console.log("jobTimeTable", jobTimeTable);
+  console.log(" import.meta.env.VITE_API_KEY ", import.meta.env.VITE_API_KEY);
+  
+  const jobTimeTable = useTable("relieverJobHours", API.recipe, false, {
+    apiKey: import.meta.env.VITE_API_KEY || "baf2d6aaa0b34d3fba0adcd5d6642c30",
+    ingredients: "carrots,tomatoes",
+  });
 
   const addToFavorite = useCallback(async (record) => {
     try {
