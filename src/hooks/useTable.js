@@ -274,6 +274,30 @@ const useTable = (tableFor, url, strict, params) => {
 
   const currentOrder = orderBy;
 
+
+  // const fetchApi = useCallback(async (page) => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(`${apiEndpoint}?page=${page}`, { params: options });
+  //     setTableData(prevData => [...prevData, ...response.data]);
+  //     setHasMore(response.data.length > 0);
+  //   } catch (err) {
+  //     setError(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [apiEndpoint, options]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setCurrentPage(prevPage => {
+        const newPage = prevPage + 1;
+        fetchApi(newPage);
+        return newPage;
+      });
+    }
+  };
+
   const tableOffset = {
     onNext,
     onPrevious,

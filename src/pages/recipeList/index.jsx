@@ -1,18 +1,17 @@
-/* eslint-disable indent */
 import { API } from "../../axios/api";
 import CustomTable from "../../helper/newTable/CustomTable";
 import useTable from "../../hooks/useTable";
 import { Formik } from "formik";
 import FilterForm from "./FilterForm";
-import data from "../../../src/helper/test.json";
+// import data from "../../../src/helper/test.json";
 import { Tooltip } from "react-tooltip";
 import { Eye, Heart } from "react-feather";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import dataService from "../../axios/dataService";
 import { successToast } from "../../helper/toast";
 import { errorHandler } from "../../helper/handleError";
-
+import RatingModal from "../../components/Modal/RatingModel";
 const initialValue = {
   ingredients: [],
 };
@@ -20,12 +19,15 @@ const initialValue = {
 const RecipeList = () => {
   const navigate = useNavigate();
 
-  console.log(" import.meta.env.VITE_API_KEY ", import.meta.env.VITE_API_KEY);
-  
+  const [recipe, setRecipe] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
   const jobTimeTable = useTable("relieverJobHours", API.recipe, false, {
     apiKey: import.meta.env.VITE_API_KEY || "baf2d6aaa0b34d3fba0adcd5d6642c30",
     ingredients: "carrots,tomatoes",
   });
+
+  // const jobTimeTable = data;
 
   const addToFavorite = useCallback(async (record) => {
     try {
@@ -46,6 +48,15 @@ const RecipeList = () => {
       return errorHandler(error);
     }
   }, []);
+
+  const onAddRating = useCallback((record) => {
+    setRecipe(record);
+    setIsOpen(true);
+  }, []);
+
+  const ratingModalCancel = () => {
+    setIsOpen(false);
+  };
 
   const jobTimeCols = [
     {
@@ -117,6 +128,22 @@ const RecipeList = () => {
               >
                 <Eye className="w-4 h-4 mr-1" />
               </div>
+              <div
+                className="flex items-center mr-3 cursor-pointer"
+                data-tooltip-id="simpleTooltipEditDeleteAgeGroup"
+                data-tooltip-content={"Add review"}
+                onClick={() => onAddRating(record)}
+              >
+                Add rating
+              </div>
+              <div
+                className="flex items-center mr-3 cursor-pointer"
+                data-tooltip-id="simpleTooltipEditDeleteAgeGroup"
+                data-tooltip-content={"View review"}
+                onClick={() => navigate(`/rating/${record?.id}`)}
+              >
+                View rating
+              </div>
             </div>
           </>
         );
@@ -135,8 +162,32 @@ const RecipeList = () => {
     jobTimeTable.onSearch("", metaFilters);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+
+      console.log("  window.innerHeight  :: ", window.innerHeight);
+      console.log("  document.documentElement.scrollTop  :: ", document.documentElement.scrollTop);
+      console.log("  document.documentElement.scrollHeight  :: ", document.documentElement.scrollHeight);
+      
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        jobTimeTable.loadMore();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [jobTimeTable]);
+
   return (
     <>
+      <RatingModal
+        isOpen={isOpen}
+        handleCancel={ratingModalCancel}
+        recipeId={recipe?.id}
+      />
       <div className="grid grid-cols-12 gap-6 mt-5">
         <CustomTable
           cols={jobTimeCols}

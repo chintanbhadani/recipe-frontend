@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupUser from "./components/SignupUser";
 import Login from "./components/login";
-import PageList from "./pages/list";
 import RecipeList from "./pages/recipeList";
 import AuthGuard from "./components/gaurd/AuthGuard";
 import RecipeFavList from "./pages/recipeFavorite";
 import RecipeShowPage from "./pages/recipeInfo";
+import RatingList from "./pages/rating";
 
 const RoutesContainer = () => {
   return (
@@ -34,6 +34,14 @@ const RoutesContainer = () => {
           element={
             <AuthGuard>
               <RecipeShowPage />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/rating/:id"
+          element={
+            <AuthGuard>
+              <RatingList />
             </AuthGuard>
           }
         />

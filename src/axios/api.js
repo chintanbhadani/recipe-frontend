@@ -7,5 +7,7 @@ export const API = {
   recipe: "https://api.spoonacular.com/recipes/findByIngredients",
   addFavorite: "/favorites",
   getFavorite: `${Host}/favorites`,
+  addRating: "/rating",
+  getRating: "/rating"
   // getRecipeInfo: "https://api.spoonacular.com/recipes/:id/information"
 };

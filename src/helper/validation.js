@@ -39,3 +39,12 @@ export const restaurantSignUpValidation = Yup.object({
 export const restaurantSignUpValidationStep2 = Yup.object({
   name: validateString.required("Name is reqiured"),
 });
+
+export const validateRating = Yup.object({
+  rating: Yup.number()
+    .min(1, 'Rating must be at least 1')
+    .max(5, 'Rating must be at most 5')
+    .required('Rating is required'),
+  comment: Yup.string()
+    .optional()  // Comment is not required
+});
